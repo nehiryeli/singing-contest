@@ -1,0 +1,30 @@
+version: '3'
+services:
+  web:
+    build: './php'
+
+    volumes:
+      - ./www/:/var/www/html/
+    ports:
+      - 8080:80
+
+  mysql:
+    image: ${MYSQL_DOCKER}
+    container_name: ${DB_HOSTNAME}
+
+
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./mysql_script/:/docker-entrypoint-initdb.d
+    ports:
+    # <Port exposed> : < MySQL Port running inside container>
+    - '3310:3306'
+    environment:
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_USER: "${DB_USER}"
+      MYSQL_PASSWORD: "${DB_PW}"
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PW}"
+    expose:
+      - '3306'
+
+
