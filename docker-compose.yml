@@ -2,7 +2,8 @@ version: '3'
 services:
   web:
     build: './php'
-
+    environment:
+      DATABASE_URL: '${DATABASE_URL}'
     volumes:
       - ./www/:/var/www/html/
     ports:
@@ -20,10 +21,10 @@ services:
     # <Port exposed> : < MySQL Port running inside container>
     - '3310:3306'
     environment:
-      MYSQL_DATABASE: "${DB_NAME}"
-      MYSQL_USER: "${DB_USER}"
-      MYSQL_PASSWORD: "${DB_PW}"
-      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PW}"
+      MYSQL_DATABASE: '${DB_NAME}'
+      MYSQL_USER: '${DB_USER}'
+      MYSQL_PASSWORD: '${DB_PW}'
+      MYSQL_ROOT_PASSWORD: '${DB_ROOT_PW}'
     expose:
       - '3306'
 
