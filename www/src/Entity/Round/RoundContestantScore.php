@@ -2,7 +2,7 @@
 
 namespace App\Entity\Round;
 
-use App\Entity\Contestant;
+use App\Entity\Contestant\Contestant;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,7 +24,7 @@ class RoundContestantScore
     private $roundId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Contestant", inversedBy="roundScore")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Contestant\Contestant", inversedBy="roundScore")
      * @ORM\JoinColumn(nullable=false)
      */
     private $contestantId;

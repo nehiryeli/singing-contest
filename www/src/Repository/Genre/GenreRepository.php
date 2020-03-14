@@ -2,7 +2,7 @@
 
 namespace App\Repository\Genre;
 
-use App\Entity\Genre;
+use App\Entity\Genre\Genre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 

@@ -2,8 +2,8 @@
 
 namespace App\Entity\Contestant;
 
-use App\Entity\Contestant;
-use App\Entity\Genre;
+use App\Entity\Contestant\Contestant;
+use App\Entity\Genre\Genre;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,13 +19,13 @@ class ContestantScore
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Contestant", inversedBy="score")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Contestant\Contestant", inversedBy="score")
      * @ORM\JoinColumn(nullable=false)
      */
     private $contestantId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Genre")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Genre\Genre")
      * @ORM\JoinColumn(nullable=false)
      */
     private $genreId;
