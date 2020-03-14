@@ -37,9 +37,15 @@ class Round
      */
     private $contesttantScores;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Round\RoundJudgeScore", mappedBy="roundId", orphanRemoval=true)
+     */
+    private $roundJudgeScores;
+
     public function __construct()
     {
         $this->contesttantScores = new ArrayCollection();
+        $this->roundJudgeScores = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -96,6 +102,37 @@ class Round
             // set the owning side to null (unless already changed)
             if ($contesttantScore->getRoundId() === $this) {
                 $contesttantScore->setRoundId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RoundJudgeScore[]
+     */
+    public function getRoundJudgeScores(): Collection
+    {
+        return $this->roundJudgeScores;
+    }
+
+    public function addRoundJudgeScore(RoundJudgeScore $roundJudgeScore): self
+    {
+        if (!$this->roundJudgeScores->contains($roundJudgeScore)) {
+            $this->roundJudgeScores[] = $roundJudgeScore;
+            $roundJudgeScore->setRoundId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRoundJudgeScore(RoundJudgeScore $roundJudgeScore): self
+    {
+        if ($this->roundJudgeScores->contains($roundJudgeScore)) {
+            $this->roundJudgeScores->removeElement($roundJudgeScore);
+            // set the owning side to null (unless already changed)
+            if ($roundJudgeScore->getRoundId() === $this) {
+                $roundJudgeScore->setRoundId(null);
             }
         }
 
