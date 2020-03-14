@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Contest\ContestContestant;
+use App\Entity\Contest\ContestJudges;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -29,9 +30,15 @@ class Contest
      */
     private $contestants;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contest\ContestJudges", mappedBy="contestId", orphanRemoval=true)
+     */
+    private $judges;
+
     public function __construct()
     {
         $this->contestants = new ArrayCollection();
+        $this->judges = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,6 +83,37 @@ class Contest
             // set the owning side to null (unless already changed)
             if ($contestant->getContestId() === $this) {
                 $contestant->setContestId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ContestJudges[]
+     */
+    public function getJudges(): Collection
+    {
+        return $this->judges;
+    }
+
+    public function addJudge(ContestJudges $judge): self
+    {
+        if (!$this->judges->contains($judge)) {
+            $this->judges[] = $judge;
+            $judge->setContestId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJudge(ContestJudges $judge): self
+    {
+        if ($this->judges->contains($judge)) {
+            $this->judges->removeElement($judge);
+            // set the owning side to null (unless already changed)
+            if ($judge->getContestId() === $this) {
+                $judge->setContestId(null);
             }
         }
 
