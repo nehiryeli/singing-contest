@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Contestant\ContestantScore;
+use App\Entity\Round\RoundContestantScore;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -29,9 +30,15 @@ class Contestant
      */
     private $score;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Round\RoundContestantScore", mappedBy="contestantId", orphanRemoval=true)
+     */
+    private $roundScore;
+
     public function __construct()
     {
         $this->score = new ArrayCollection();
+        $this->roundScore = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,6 +83,37 @@ class Contestant
             // set the owning side to null (unless already changed)
             if ($score->getContestantId() === $this) {
                 $score->setContestantId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RoundContestantScore[]
+     */
+    public function getRoundScore(): Collection
+    {
+        return $this->roundScore;
+    }
+
+    public function addRoundScore(RoundContestantScore $roundScore): self
+    {
+        if (!$this->roundScore->contains($roundScore)) {
+            $this->roundScore[] = $roundScore;
+            $roundScore->setContestantId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRoundScore(RoundContestantScore $roundScore): self
+    {
+        if ($this->roundScore->contains($roundScore)) {
+            $this->roundScore->removeElement($roundScore);
+            // set the owning side to null (unless already changed)
+            if ($roundScore->getContestantId() === $this) {
+                $roundScore->setContestantId(null);
             }
         }
 
