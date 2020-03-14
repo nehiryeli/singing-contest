@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Contest;
 
-use App\Entity\Contest;
+
+use App\Entity\Contest\Contest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -17,6 +18,15 @@ class ContestRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Contest::class);
+    }
+
+    public function getUncompletedContests()
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.isCompleted = 0')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**

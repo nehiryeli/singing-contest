@@ -19,7 +19,7 @@ class ContestJudges
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Contest", inversedBy="judges")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Contest\Contest", inversedBy="judges")
      * @ORM\JoinColumn(nullable=false)
      */
     private $contestId;

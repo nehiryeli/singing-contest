@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Contest;
 
 use App\Entity\Contest\ContestContestant;
 use App\Entity\Contest\ContestJudges;

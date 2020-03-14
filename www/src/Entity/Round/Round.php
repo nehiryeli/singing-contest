@@ -21,13 +21,13 @@ class Round
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Contest", inversedBy="rounds")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Contest\Contest", inversedBy="rounds")
      * @ORM\JoinColumn(nullable=false)
      */
     private $contestId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Genre")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Genre\Genre")
      * @ORM\JoinColumn(nullable=false)
      */
     private $genreId;

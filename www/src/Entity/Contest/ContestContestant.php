@@ -3,7 +3,7 @@
 namespace App\Entity\Contest;
 
 use App\Entity\Contest;
-use App\Entity\Contestant;
+use App\Entity\Contestant\Contestant;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,13 +19,13 @@ class ContestContestant
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Contest", inversedBy="contestants")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Contest\Contest", inversedBy="contestants")
      * @ORM\JoinColumn(nullable=false)
      */
     private $contestId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Contestant")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Contestant\Contestant")
      * @ORM\JoinColumn(nullable=false)
      */
     private $contestantId;

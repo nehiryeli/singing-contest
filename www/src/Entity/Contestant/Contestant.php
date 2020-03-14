@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Contestant;
 
 use App\Entity\Contestant\ContestantScore;
 use App\Entity\Round\RoundContestantScore;
