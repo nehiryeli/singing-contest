@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Contest\ContestContestant;
 use App\Entity\Contest\ContestJudges;
+use App\Entity\Round\Round;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -35,10 +36,16 @@ class Contest
      */
     private $judges;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Round\Round", mappedBy="contestId", orphanRemoval=true)
+     */
+    private $rounds;
+
     public function __construct()
     {
         $this->contestants = new ArrayCollection();
         $this->judges = new ArrayCollection();
+        $this->rounds = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,6 +121,37 @@ class Contest
             // set the owning side to null (unless already changed)
             if ($judge->getContestId() === $this) {
                 $judge->setContestId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Round[]
+     */
+    public function getRounds(): Collection
+    {
+        return $this->rounds;
+    }
+
+    public function addRound(Round $round): self
+    {
+        if (!$this->rounds->contains($round)) {
+            $this->rounds[] = $round;
+            $round->setContestId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRound(Round $round): self
+    {
+        if ($this->rounds->contains($round)) {
+            $this->rounds->removeElement($round);
+            // set the owning side to null (unless already changed)
+            if ($round->getContestId() === $this) {
+                $round->setContestId(null);
             }
         }
 
