@@ -13,6 +13,8 @@ use Doctrine\ORM\EntityManagerInterface;
 class ContestantService
 {
     const NUMBER_OF_CONTESTANT = 10; //  number of contestants for each contest
+    const MIN_SKILL_SCORE = 1; // minimum skill score of contestant for each genre
+    const MAX_SKILL_SCORE = 10; // maximum skill score of contestant for each genre
     /**
      * @var EntityManagerInterface
      */
@@ -67,12 +69,14 @@ class ContestantService
         $genres = $this->genreService->getAllGenres();
         foreach ($genres as $genre){
             $contestantScore = new ContestantScore();
-            $contestantScore->setGenreId($genre);
-            $contestantScore->setScore(rand(0,10));
-            $contestantScore->setContestantId($contestant);
-
+            $contestantScore->setGenre($genre);
+            $contestantScore->setScore(rand(self::MIN_SKILL_SCORE, self::MAX_SKILL_SCORE));
             $this->entityManager->persist($contestantScore);
+
+            $contestant->addScore($contestantScore);
+
             $this->entityManager->flush();
+
         }
     }
 }
