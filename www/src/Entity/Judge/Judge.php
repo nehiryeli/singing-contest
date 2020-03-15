@@ -9,8 +9,16 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Judge\JudgeRepository")
+ * @ORM\Entity()
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({
+ *     "judge" = "Judge",
+ *     "meanJudge" = "MeanJudge",
+ *     "honestJudge" = "HonestJudge"
+ * })
  */
-class Judge
+class Judge implements JudgeInterface
 {
     /**
      * @ORM\Id()
@@ -20,15 +28,16 @@ class Judge
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Judge\JudgeCategory")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $category_id;
+    private $category;
+    
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Round\RoundJudgeScore", mappedBy="judgeId", orphanRemoval=true)
      */
     private $roundJudgeScores;
+
 
     public function __construct()
     {
@@ -40,14 +49,14 @@ class Judge
         return $this->id;
     }
 
-    public function getCategoryId(): ?JudgeCategory
+    public function getCategory(): ?JudgeCategory
     {
-        return $this->category_id;
+        return $this->category;
     }
 
-    public function setCategoryId(?JudgeCategory $category_id): self
+    public function setCategory(?JudgeCategory $category): self
     {
-        $this->category_id = $category_id;
+        $this->category = $category;
 
         return $this;
     }
@@ -64,7 +73,7 @@ class Judge
     {
         if (!$this->roundJudgeScores->contains($roundJudgeScore)) {
             $this->roundJudgeScores[] = $roundJudgeScore;
-            $roundJudgeScore->setJudgeId($this);
+            $roundJudgeScore->setJudge($this);
         }
 
         return $this;
@@ -75,11 +84,22 @@ class Judge
         if ($this->roundJudgeScores->contains($roundJudgeScore)) {
             $this->roundJudgeScores->removeElement($roundJudgeScore);
             // set the owning side to null (unless already changed)
-            if ($roundJudgeScore->getJudgeId() === $this) {
-                $roundJudgeScore->setJudgeId(null);
+            if ($roundJudgeScore->getJudge() === $this) {
+                $roundJudgeScore->setJudge(null);
             }
         }
 
         return $this;
+    }
+
+
+
+    /**
+     * Each Judge has their own calculation method based on their category
+     * @return mixed
+     */
+    public function scoring()
+    {
+        // TODO: Implement scoring() method.
     }
 }
