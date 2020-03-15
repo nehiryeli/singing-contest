@@ -21,13 +21,13 @@ class RoundContestantScore
      * @ORM\ManyToOne(targetEntity="App\Entity\Round\Round", inversedBy="contesttantScores")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $roundId;
+    private $round;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Contestant\Contestant", inversedBy="roundScore")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $contestantId;
+    private $contestant;
 
     /**
      * @ORM\Column(type="decimal", precision=4, scale=1)
@@ -39,26 +39,26 @@ class RoundContestantScore
         return $this->id;
     }
 
-    public function getRoundId(): ?Round
+    public function getRound(): ?Round
     {
-        return $this->roundId;
+        return $this->round;
     }
 
-    public function setRoundId(?Round $roundId): self
+    public function setRound(?Round $round): self
     {
-        $this->roundId = $roundId;
+        $this->round = $round;
 
         return $this;
     }
 
-    public function getContestantId(): ?Contestant
+    public function getContestant(): ?Contestant
     {
-        return $this->contestantId;
+        return $this->contestant;
     }
 
-    public function setContestantId(?Contestant $contestantId): self
+    public function setContestant(?Contestant $contestant): self
     {
-        $this->contestantId = $contestantId;
+        $this->contestant = $contestant;
 
         return $this;
     }

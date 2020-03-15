@@ -2,6 +2,7 @@
 
 namespace App\Entity\Contest;
 
+
 use App\Entity\Contest\ContestContestant;
 use App\Entity\Contest\ContestJudges;
 use App\Entity\Round\Round;
@@ -41,11 +42,14 @@ class Contest
      */
     private $rounds;
 
+
+
     public function __construct()
     {
         $this->contestants = new ArrayCollection();
         $this->judges = new ArrayCollection();
         $this->rounds = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -77,7 +81,7 @@ class Contest
     {
         if (!$this->contestants->contains($contestant)) {
             $this->contestants[] = $contestant;
-            $contestant->setContestId($this);
+            $contestant->setContest($this);
         }
 
         return $this;
@@ -88,8 +92,8 @@ class Contest
         if ($this->contestants->contains($contestant)) {
             $this->contestants->removeElement($contestant);
             // set the owning side to null (unless already changed)
-            if ($contestant->getContestId() === $this) {
-                $contestant->setContestId(null);
+            if ($contestant->getContest() === $this) {
+                $contestant->setContest(null);
             }
         }
 
@@ -108,7 +112,7 @@ class Contest
     {
         if (!$this->judges->contains($judge)) {
             $this->judges[] = $judge;
-            $judge->setContestId($this);
+            $judge->setContest($this);
         }
 
         return $this;
@@ -119,8 +123,8 @@ class Contest
         if ($this->judges->contains($judge)) {
             $this->judges->removeElement($judge);
             // set the owning side to null (unless already changed)
-            if ($judge->getContestId() === $this) {
-                $judge->setContestId(null);
+            if ($judge->getContest() === $this) {
+                $judge->setContest(null);
             }
         }
 
@@ -139,7 +143,7 @@ class Contest
     {
         if (!$this->rounds->contains($round)) {
             $this->rounds[] = $round;
-            $round->setContestId($this);
+            $round->setContest($this);
         }
 
         return $this;
@@ -150,11 +154,13 @@ class Contest
         if ($this->rounds->contains($round)) {
             $this->rounds->removeElement($round);
             // set the owning side to null (unless already changed)
-            if ($round->getContestId() === $this) {
-                $round->setContestId(null);
+            if ($round->getContest() === $this) {
+                $round->setContest(null);
             }
         }
 
         return $this;
     }
+
+
 }

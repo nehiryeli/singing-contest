@@ -21,13 +21,13 @@ class RoundJudgeScore
      * @ORM\ManyToOne(targetEntity="App\Entity\Round\Round", inversedBy="roundJudgeScores")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $roundId;
+    private $round;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Judge\Judge", inversedBy="roundJudgeScores")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $judgeId;
+    private $judge;
 
     /**
      * @ORM\Column(type="integer")
@@ -39,26 +39,26 @@ class RoundJudgeScore
         return $this->id;
     }
 
-    public function getRoundId(): ?Round
+    public function getRound(): ?Round
     {
-        return $this->roundId;
+        return $this->round;
     }
 
-    public function setRoundId(?Round $roundId): self
+    public function setRound(?Round $round): self
     {
-        $this->roundId = $roundId;
+        $this->round = $round;
 
         return $this;
     }
 
-    public function getJudgeId(): ?Judge
+    public function getJudge(): ?Judge
     {
-        return $this->judgeId;
+        return $this->judge;
     }
 
-    public function setJudgeId(?Judge $judgeId): self
+    public function setJudge(?Judge $judge): self
     {
-        $this->judgeId = $judgeId;
+        $this->judge = $judge;
 
         return $this;
     }

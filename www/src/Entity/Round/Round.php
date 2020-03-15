@@ -2,8 +2,10 @@
 
 namespace App\Entity\Round;
 
-use App\Entity\Contest;
-use App\Entity\Genre;
+use App\Entity\Contest\Contest;
+use App\Entity\Genre\Genre;
+
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,27 +26,36 @@ class Round
      * @ORM\ManyToOne(targetEntity="App\Entity\Contest\Contest", inversedBy="rounds")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $contestId;
+    private $contest;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Genre\Genre")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $genreId;
+
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Round\RoundContestantScore", mappedBy="roundId", orphanRemoval=true)
      */
-    private $contesttantScores;
+    private $contestantScores;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Round\RoundJudgeScore", mappedBy="roundId", orphanRemoval=true)
      */
     private $roundJudgeScores;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isCompleted;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Genre\Genre")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $genre;
+
+
+
     public function __construct()
     {
-        $this->contesttantScores = new ArrayCollection();
+        $this->contestantScores = new ArrayCollection();
         $this->roundJudgeScores = new ArrayCollection();
     }
 
@@ -53,43 +64,33 @@ class Round
         return $this->id;
     }
 
-    public function getContestId(): ?Contest
+    public function getContest(): ?Contest
     {
-        return $this->contestId;
+        return $this->contest;
     }
 
-    public function setContestId(?Contest $contestId): self
+    public function setContest(?Contest $contest): self
     {
-        $this->contestId = $contestId;
+        $this->contest = $contest;
 
         return $this;
     }
 
-    public function getGenreId(): ?Genre
-    {
-        return $this->genreId;
-    }
 
-    public function setGenreId(?Genre $genreId): self
-    {
-        $this->genreId = $genreId;
-
-        return $this;
-    }
 
     /**
      * @return Collection|RoundContestantScore[]
      */
-    public function getContesttantScores(): Collection
+    public function getContestantScores(): Collection
     {
-        return $this->contesttantScores;
+        return $this->contestantScores;
     }
 
     public function addContesttantScore(RoundContestantScore $contesttantScore): self
     {
-        if (!$this->contesttantScores->contains($contesttantScore)) {
-            $this->contesttantScores[] = $contesttantScore;
-            $contesttantScore->setRoundId($this);
+        if (!$this->contestantScores->contains($contesttantScore)) {
+            $this->contestantScores[] = $contesttantScore;
+            $contesttantScore->setRound($this);
         }
 
         return $this;
@@ -97,11 +98,11 @@ class Round
 
     public function removeContesttantScore(RoundContestantScore $contesttantScore): self
     {
-        if ($this->contesttantScores->contains($contesttantScore)) {
-            $this->contesttantScores->removeElement($contesttantScore);
+        if ($this->contestantScores->contains($contesttantScore)) {
+            $this->contestantScores->removeElement($contesttantScore);
             // set the owning side to null (unless already changed)
-            if ($contesttantScore->getRoundId() === $this) {
-                $contesttantScore->setRoundId(null);
+            if ($contesttantScore->getRound() === $this) {
+                $contesttantScore->setRound(null);
             }
         }
 
@@ -120,7 +121,7 @@ class Round
     {
         if (!$this->roundJudgeScores->contains($roundJudgeScore)) {
             $this->roundJudgeScores[] = $roundJudgeScore;
-            $roundJudgeScore->setRoundId($this);
+            $roundJudgeScore->setRound($this);
         }
 
         return $this;
@@ -131,11 +132,37 @@ class Round
         if ($this->roundJudgeScores->contains($roundJudgeScore)) {
             $this->roundJudgeScores->removeElement($roundJudgeScore);
             // set the owning side to null (unless already changed)
-            if ($roundJudgeScore->getRoundId() === $this) {
-                $roundJudgeScore->setRoundId(null);
+            if ($roundJudgeScore->getRound() === $this) {
+                $roundJudgeScore->setRound(null);
             }
         }
 
         return $this;
     }
+
+    public function getIsCompleted(): ?bool
+    {
+        return $this->isCompleted;
+    }
+
+    public function setIsCompleted(?bool $isCompleted): self
+    {
+        $this->isCompleted = $isCompleted;
+
+        return $this;
+    }
+
+    public function getGenre(): ?Genre
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(?Genre $genre): self
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
+
+
 }

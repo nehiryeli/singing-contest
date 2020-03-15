@@ -22,39 +22,39 @@ class ContestJudges
      * @ORM\ManyToOne(targetEntity="App\Entity\Contest\Contest", inversedBy="judges")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $contestId;
+    private $contest;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Judge\Judge")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $judgeId;
+    private $judge;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getContestId(): ?Contest
+    public function getContest(): ?Contest
     {
-        return $this->contestId;
+        return $this->contest;
     }
 
-    public function setContestId(?Contest $contestId): self
+    public function setContest(?Contest $contest): self
     {
-        $this->contestId = $contestId;
+        $this->contest = $contest;
 
         return $this;
     }
 
-    public function getJudgeId(): ?Judge
+    public function getJudge(): ?Judge
     {
-        return $this->judgeId;
+        return $this->judge;
     }
 
-    public function setJudgeId(?Judge $judgeId): self
+    public function setJudge(?Judge $judge): self
     {
-        $this->judgeId = $judgeId;
+        $this->judge = $judge;
 
         return $this;
     }
