@@ -22,13 +22,13 @@ class ContestantScore
      * @ORM\ManyToOne(targetEntity="App\Entity\Contestant\Contestant", inversedBy="score")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $contestantId;
+    private $contestant;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Genre\Genre")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $genreId;
+    private $genre;
 
     /**
      * @ORM\Column(type="integer")
@@ -40,26 +40,26 @@ class ContestantScore
         return $this->id;
     }
 
-    public function getContestantId(): ?Contestant
+    public function getContestant(): ?Contestant
     {
-        return $this->contestantId;
+        return $this->contestant;
     }
 
-    public function setContestantId(?Contestant $contestantId): self
+    public function setContestant(?Contestant $contestant): self
     {
-        $this->contestantId = $contestantId;
+        $this->contestant = $contestant;
 
         return $this;
     }
 
-    public function getGenreId(): ?Genre
+    public function getGenre(): ?Genre
     {
-        return $this->genreId;
+        return $this->genre;
     }
 
-    public function setGenreId(?Genre $genreId): self
+    public function setGenre(?Genre $genre): self
     {
-        $this->genreId = $genreId;
+        $this->genre = $genre;
 
         return $this;
     }

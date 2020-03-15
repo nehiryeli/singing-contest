@@ -70,7 +70,7 @@ class Contestant
     {
         if (!$this->score->contains($score)) {
             $this->score[] = $score;
-            $score->setContestantId($this);
+            $score->setContestant($this);
         }
 
         return $this;
@@ -81,8 +81,8 @@ class Contestant
         if ($this->score->contains($score)) {
             $this->score->removeElement($score);
             // set the owning side to null (unless already changed)
-            if ($score->getContestantId() === $this) {
-                $score->setContestantId(null);
+            if ($score->getContestant() === $this) {
+                $score->setContestant(null);
             }
         }
 
@@ -101,7 +101,7 @@ class Contestant
     {
         if (!$this->roundScore->contains($roundScore)) {
             $this->roundScore[] = $roundScore;
-            $roundScore->setContestantId($this);
+            $roundScore->setContestant($this);
         }
 
         return $this;
@@ -112,8 +112,8 @@ class Contestant
         if ($this->roundScore->contains($roundScore)) {
             $this->roundScore->removeElement($roundScore);
             // set the owning side to null (unless already changed)
-            if ($roundScore->getContestantId() === $this) {
-                $roundScore->setContestantId(null);
+            if ($roundScore->getContestant() === $this) {
+                $roundScore->setContestant(null);
             }
         }
 
