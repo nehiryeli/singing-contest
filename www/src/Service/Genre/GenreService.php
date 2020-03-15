@@ -35,14 +35,17 @@ class GenreService
         return $this->genreRepository->findAll();
     }
 
+    public function getAllGenresRandomOrder(){
+        $genres = $this->getAllGenres();
+        shuffle($genres);
+        return $genres;
+    }
+
     public function getRandomGenre()
     {
-        $genres = $this->getAllGenres();
-        if($genres){
-            // return random genre from all genres
-            return $genres[rand(0, count($genres) -1)];
-        }
-        return null;
+        $genres = $this->getAllGenresRandomOrder();
+        return reset($genres);
+
 
     }
 }
