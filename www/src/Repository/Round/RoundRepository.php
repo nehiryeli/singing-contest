@@ -19,6 +19,19 @@ class RoundRepository extends ServiceEntityRepository
         parent::__construct($registry, Round::class);
     }
 
+    public function getNextRoundGenre($contest)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.contest = :contest')
+            ->setParameter('contest', $contest)
+            ->andWhere('c.isCompleted = false')
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
     // /**
     //  * @return Round[] Returns an array of Round objects
     //  */
