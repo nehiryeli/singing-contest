@@ -28,17 +28,17 @@ class Contest
     private $isCompleted;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Contest\ContestContestant", mappedBy="contestId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Contest\ContestContestant", mappedBy="contest", orphanRemoval=true)
      */
     private $contestants;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Contest\ContestJudges", mappedBy="contestId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Contest\ContestJudges", mappedBy="contest", orphanRemoval=true)
      */
     private $judges;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Round\Round", mappedBy="contestId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Round\Round", mappedBy="contest", orphanRemoval=true)
      */
     private $rounds;
 
@@ -161,6 +161,7 @@ class Contest
 
         return $this;
     }
+
 
 
 }

@@ -20,12 +20,13 @@ class ContestRepository extends ServiceEntityRepository
         parent::__construct($registry, Contest::class);
     }
 
-    public function getUncompletedContests()
+    public function getUncompletedContest()
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.isCompleted = 0')
             ->getQuery()
-            ->getResult()
+            ->setMaxResults(1)
+            ->getOneOrNullResult()
             ;
     }
 

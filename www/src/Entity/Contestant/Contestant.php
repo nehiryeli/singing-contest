@@ -26,12 +26,12 @@ class Contestant
     private $isSick;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Contestant\ContestantScore", mappedBy="contestantId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Contestant\ContestantScore", mappedBy="contestant", orphanRemoval=true)
      */
     private $score;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Round\RoundContestantScore", mappedBy="contestantId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Round\RoundContestantScore", mappedBy="contestant", orphanRemoval=true)
      */
     private $roundScore;
 
