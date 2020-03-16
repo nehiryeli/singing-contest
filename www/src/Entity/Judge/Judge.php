@@ -3,6 +3,8 @@
 namespace App\Entity\Judge;
 
 use App\Entity\Contestant\Contestant;
+use App\Entity\Contestant\ContestantScore;
+use App\Entity\Round\RoundContestantScore;
 use App\Entity\Round\RoundJudgeScore;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -99,10 +101,11 @@ class Judge implements JudgeInterface
 
     /**
      * Each Judge has their own calculation method based on their category
-     * @param $roundScore
+     * @param $roundContestantScore
      * @return mixed
      */
-    public function scoring($roundScore){
+    public function scoring(RoundContestantScore $roundContestantScore)
+    {
 
     }
 }

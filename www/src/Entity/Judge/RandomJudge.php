@@ -4,21 +4,29 @@
 namespace App\Entity\Judge;
 
 use App\Entity\Contestant\Contestant;
+use App\Entity\Contestant\ContestantScore;
+use App\Entity\Round\RoundContestantScore;
 use Doctrine\ORM\Mapping\Entity;
+
+/**
+ * This judge gives a random score out of 10, regardless of the calculated contestant score.
+ */
 
 /** @Entity */
 class RandomJudge extends Judge implements JudgeInterface
 {
+    const MIN_SCORE = 0;
+    const MAX_SCORE = 10;
+
 
 
     /**
      * Each Judge has their own calculation method based on their category
-     * @param $roundScore
+     * @param $roundRoundContestantScore
      * @return mixed
      */
-    public function scoring($roundScore)
+    public function scoring(RoundContestantScore $roundRoundContestantScore)
     {
-        return rand(0, 10);
-        // TODO: Implement scoring() method.
+        return rand(self::MIN_SCORE, self::MAX_SCORE);
     }
 }
