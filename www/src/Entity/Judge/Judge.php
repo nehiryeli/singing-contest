@@ -2,6 +2,7 @@
 
 namespace App\Entity\Judge;
 
+use App\Entity\Contestant\Contestant;
 use App\Entity\Round\RoundJudgeScore;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,7 +16,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorMap({
  *     "judge" = "Judge",
  *     "meanJudge" = "MeanJudge",
- *     "honestJudge" = "HonestJudge"
+ *     "honestJudge" = "HonestJudge",
+ *     "randomJudge" = "RandomJudge",
+ *     "rockJudge" = "RockJudge",
+ *     "friendlyJudge" = "FriendlyJudge"
  * })
  */
 class Judge implements JudgeInterface
@@ -93,13 +97,12 @@ class Judge implements JudgeInterface
     }
 
 
-
     /**
      * Each Judge has their own calculation method based on their category
+     * @param $roundScore
      * @return mixed
      */
-    public function scoring()
-    {
-        // TODO: Implement scoring() method.
+    public function scoring($roundScore){
+
     }
 }
