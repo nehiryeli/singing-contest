@@ -2,6 +2,7 @@
 
 namespace App\Entity\Round;
 
+use App\Entity\Contestant\Contestant;
 use App\Entity\Judge\Judge;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,6 +34,12 @@ class RoundJudgeScore
      * @ORM\Column(type="integer")
      */
     private $score;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Contestant\Contestant")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $contestant;
 
     public function getId(): ?int
     {
@@ -71,6 +78,18 @@ class RoundJudgeScore
     public function setScore(int $score): self
     {
         $this->score = $score;
+
+        return $this;
+    }
+
+    public function getContestant(): ?Contestant
+    {
+        return $this->contestant;
+    }
+
+    public function setContestant(?Contestant $contestant): self
+    {
+        $this->contestant = $contestant;
 
         return $this;
     }
