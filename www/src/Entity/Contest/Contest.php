@@ -42,6 +42,11 @@ class Contest
      */
     private $rounds;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contest\ContestWinner", mappedBy="contest", orphanRemoval=true)
+     */
+    private $winner;
+
 
 
     public function __construct()
@@ -49,6 +54,7 @@ class Contest
         $this->contestants = new ArrayCollection();
         $this->judges = new ArrayCollection();
         $this->rounds = new ArrayCollection();
+        $this->winner = new ArrayCollection();
 
     }
 
@@ -156,6 +162,37 @@ class Contest
             // set the owning side to null (unless already changed)
             if ($round->getContest() === $this) {
                 $round->setContest(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ContestWinner[]
+     */
+    public function getWinner(): Collection
+    {
+        return $this->winner;
+    }
+
+    public function addWinner(ContestWinner $winner): self
+    {
+        if (!$this->winner->contains($winner)) {
+            $this->winner[] = $winner;
+            $winner->setContest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWinner(ContestWinner $winner): self
+    {
+        if ($this->winner->contains($winner)) {
+            $this->winner->removeElement($winner);
+            // set the owning side to null (unless already changed)
+            if ($winner->getContest() === $this) {
+                $winner->setContest(null);
             }
         }
 
