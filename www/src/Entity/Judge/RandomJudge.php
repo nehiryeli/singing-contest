@@ -7,7 +7,7 @@ use App\Entity\Contestant\Contestant;
 use Doctrine\ORM\Mapping\Entity;
 
 /** @Entity */
-class MeanJudge extends Judge implements JudgeInterface
+class RandomJudge extends Judge implements JudgeInterface
 {
 
 
@@ -18,7 +18,7 @@ class MeanJudge extends Judge implements JudgeInterface
      */
     public function scoring($roundScore)
     {
-        return 1;
+        return rand(0, 10);
         // TODO: Implement scoring() method.
     }
 }

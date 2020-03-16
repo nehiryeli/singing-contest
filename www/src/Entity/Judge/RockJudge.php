@@ -7,7 +7,7 @@ use App\Entity\Contestant\Contestant;
 use Doctrine\ORM\Mapping\Entity;
 
 /** @Entity */
-class MeanJudge extends Judge implements JudgeInterface
+class RockJudge extends Judge implements JudgeInterface
 {
 
 
