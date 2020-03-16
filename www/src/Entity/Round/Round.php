@@ -31,12 +31,12 @@ class Round
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Round\RoundContestantScore", mappedBy="roundId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Round\RoundContestantScore", mappedBy="round", orphanRemoval=true)
      */
     private $contestantScores;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Round\RoundJudgeScore", mappedBy="roundId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Round\RoundJudgeScore", mappedBy="round", orphanRemoval=true)
      */
     private $roundJudgeScores;
 
