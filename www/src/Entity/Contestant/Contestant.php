@@ -2,6 +2,7 @@
 
 namespace App\Entity\Contestant;
 
+use App\Entity\Contest\ContestWinner;
 use App\Entity\Contestant\ContestantScore;
 use App\Entity\Round\RoundContestantScore;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -35,10 +36,16 @@ class Contestant
      */
     private $roundScore;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contest\ContestWinner", mappedBy="contestant", orphanRemoval=true)
+     */
+    private $winner;
+
     public function __construct()
     {
         $this->score = new ArrayCollection();
         $this->roundScore = new ArrayCollection();
+        $this->winner = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,6 +121,37 @@ class Contestant
             // set the owning side to null (unless already changed)
             if ($roundScore->getContestant() === $this) {
                 $roundScore->setContestant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ContestWinner[]
+     */
+    public function getWinner(): Collection
+    {
+        return $this->winner;
+    }
+
+    public function addWinner(ContestWinner $winner): self
+    {
+        if (!$this->winner->contains($winner)) {
+            $this->winner[] = $winner;
+            $winner->setContestant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWinner(ContestWinner $winner): self
+    {
+        if ($this->winner->contains($winner)) {
+            $this->winner->removeElement($winner);
+            // set the owning side to null (unless already changed)
+            if ($winner->getContestant() === $this) {
+                $winner->setContestant(null);
             }
         }
 
