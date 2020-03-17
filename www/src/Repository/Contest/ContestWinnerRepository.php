@@ -5,6 +5,7 @@ namespace App\Repository\Contest;
 use App\Entity\Contest\ContestWinner;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * @method ContestWinner|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +20,28 @@ class ContestWinnerRepository extends ServiceEntityRepository
         parent::__construct($registry, ContestWinner::class);
     }
 
+
+    /*
+     * There could be more then one contest with best score. So we check the best score first than look
+     * for the contests with that score.
+     */
+    public function getAllTimeBestContest(){
+        $max_score =  $this->createQueryBuilder('c')
+            ->select('max(c.totalScore)')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+
+        if ($max_score){
+            return $this->createQueryBuilder('d')
+                ->andWhere('d.totalScore = :max_score')
+                ->setParameter('max_score', $max_score)
+                ->getQuery()
+                ->getResult()
+                ;
+        }
+    }
     // /**
     //  * @return ContestWinner[] Returns an array of ContestWinner objects
     //  */
