@@ -18,7 +18,7 @@ php bin/console doctrine:fixtures:load
 
 ## Method 2: Self Deployment
 Use files ```www``` folder. Update DB credentials located in 
-```www\.env``` file.
+```www\.env``` file. Run following commands from ```www``` folder
 
 Import DB schema in ```SQL``` folder
 ## How To Run
