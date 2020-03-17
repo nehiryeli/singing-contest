@@ -6,21 +6,15 @@ namespace App\Service\Round;
 
 use App\Entity\Contest\Contest;
 use App\Entity\Contest\ContestContestant;
-use App\Entity\Contest\ContestJudges;
 use App\Entity\Contest\ContestWinner;
 use App\Entity\Contestant\Contestant;
-use App\Entity\Genre\Genre;
-use App\Entity\Judge\HonestJudge;
-use App\Entity\Judge\MeanJudge;
 use App\Entity\Round\Round;
 use App\Entity\Round\RoundContestantScore;
 use App\Entity\Round\RoundJudgeScore;
-use App\Repository\Contest\ContestGenreRepository;
 use App\Repository\Round\RoundRepository;
 use App\Service\Contest\ContestService;
 use App\Service\Genre\GenreService;
 use App\Service\Judge\JudgeService;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 
 class RoundService
@@ -71,8 +65,6 @@ class RoundService
         $this->roundRepository = $roundRepository;
         $this->entityManager = $entityManager;
         $this->judgeService = $judgeService;
-
-
     }
 
     public function createRounds(Contest $contest)
@@ -85,11 +77,8 @@ class RoundService
             $round->setIsCompleted(0);
             $this->entityManager->persist($round);
         }
-
         $this->entityManager->flush();
-
         $this->startNextRound($contest);
-
     }
 
     public function startNextRound(Contest $contest)
@@ -99,7 +88,6 @@ class RoundService
         $round = $this->getNextRound($contest);
         if ($round) {
             // there is still round to complete
-
 
             $this->setContestantRoundScore($round);
             $this->setJudgePoint($round, $contest->getJudges());
@@ -113,11 +101,8 @@ class RoundService
                 $this->completeContest($contest);
                 //$this->contestService->completeContest($contest);
 
-
             }
         }
-
-
     }
 
     private function setContestantRoundScore(Round $round)
@@ -151,11 +136,8 @@ class RoundService
                     $round->addContesttantScore($roundScore);
                 }
 
-
             }
-
         }
-
 
         $this->entityManager->flush();
 
@@ -260,7 +242,6 @@ class RoundService
             $this->entityManager->persist($contestWinner);
             $this->entityManager->persist($contest);
         }
-
 
         $this->entityManager->flush();
 

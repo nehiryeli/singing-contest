@@ -5,9 +5,6 @@ namespace App\Service\Judge;
 
 
 use App\Entity\Contestant\Contestant;
-use App\Entity\Judge\Judge;
-use App\Entity\Judge\JudgeCategory;
-use App\Entity\Judge\MeanJudge;
 use App\Entity\Round\RoundJudgeScore;
 use App\Repository\Judge\JudgeRepository;
 use App\Repository\Round\RoundJudgeScoreRepository;

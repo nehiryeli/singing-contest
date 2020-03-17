@@ -2,7 +2,6 @@
 
 namespace App\Entity\Contest;
 
-use App\Entity\Contest\Contest;
 use App\Entity\Contestant\Contestant;
 use Doctrine\ORM\Mapping as ORM;
 

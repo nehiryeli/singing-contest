@@ -11,7 +11,6 @@ use App\Entity\Contest\ContestWinner;
 use App\Entity\Round\Round;
 use App\Service\Contestant\ContestantService;
 use App\Service\Genre\GenreService;
-use App\Repository\Contest\ContestRepository;
 use App\Service\Judge\JudgeService;
 use App\Service\Round\RoundService;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -191,11 +190,6 @@ class ContestService
     }
 
 
-
-    private function calculateFinalScore()
-    {
-
-    }
 
     public function getProgressOfActiveContest()
     {

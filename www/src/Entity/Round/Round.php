@@ -4,8 +4,6 @@ namespace App\Entity\Round;
 
 use App\Entity\Contest\Contest;
 use App\Entity\Genre\Genre;
-
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

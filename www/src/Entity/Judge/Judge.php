@@ -2,8 +2,6 @@
 
 namespace App\Entity\Judge;
 
-use App\Entity\Contestant\Contestant;
-use App\Entity\Contestant\ContestantScore;
 use App\Entity\Round\RoundContestantScore;
 use App\Entity\Round\RoundJudgeScore;
 use Doctrine\Common\Collections\ArrayCollection;

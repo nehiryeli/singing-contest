@@ -3,7 +3,6 @@
 namespace App\Entity\Contestant;
 
 use App\Entity\Contest\ContestWinner;
-use App\Entity\Contestant\ContestantScore;
 use App\Entity\Round\RoundContestantScore;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

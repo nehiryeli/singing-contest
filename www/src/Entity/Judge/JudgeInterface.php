@@ -3,9 +3,6 @@
 
 namespace App\Entity\Judge;
 
-
-use App\Entity\Contestant\Contestant;
-use App\Entity\Contestant\ContestantScore;
 use App\Entity\Round\RoundContestantScore;
 
 interface JudgeInterface

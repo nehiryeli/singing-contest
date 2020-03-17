@@ -2,7 +2,6 @@
 
 namespace App\Entity\Contestant;
 
-use App\Entity\Contestant\Contestant;
 use App\Entity\Genre\Genre;
 use Doctrine\ORM\Mapping as ORM;
 

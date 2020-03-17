@@ -2,9 +2,6 @@
 
 namespace App\Entity\Contest;
 
-
-use App\Entity\Contest\ContestContestant;
-use App\Entity\Contest\ContestJudges;
 use App\Entity\Round\Round;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
