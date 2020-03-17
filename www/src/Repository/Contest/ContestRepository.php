@@ -30,6 +30,18 @@ class ContestRepository extends ServiceEntityRepository
             ;
     }
 
+
+    public function getLastContests(int $numberOfContest){
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.isCompleted = 1')
+            ->setMaxResults($numberOfContest)
+            ->addOrderBy('c.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+
+    }
+
     // /**
     //  * @return Contest[] Returns an array of Contest objects
     //  */
