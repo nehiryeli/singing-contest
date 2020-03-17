@@ -16,6 +16,7 @@ use Doctrine\ORM\Mapping\Entity;
 class FriendlyJudge extends Judge implements JudgeInterface
 {
     const BONUS = 1;
+    const THRESHOLD = 3; // Limit to get higher score
     const HIGH_POINT = 8; // The judge gives every contestant a score of 8 unless they have a calculated contestant score of less than or equal to 3.0
     const LOW_POINT = 7;
 
@@ -27,7 +28,7 @@ class FriendlyJudge extends Judge implements JudgeInterface
     public function scoring(RoundContestantScore  $roundRoundContestantScore)
     {
         /** @var RoundContestantScore $contestantScore */
-        $score = $roundRoundContestantScore->getScore() <= 3 ? self::LOW_POINT : self::HIGH_POINT;
+        $score = $roundRoundContestantScore->getScore() <= self::THRESHOLD ? self::LOW_POINT : self::HIGH_POINT;
         $score += $roundRoundContestantScore->getContestant()->getIsSick() ? self::BONUS : 0;
 
         return $score;

@@ -39,15 +39,18 @@ class JudgeService
     /**
      * JudgeService constructor.
      * @param EntityManagerInterface $entityManager
-     * @param RoundJudgeScoreRepository $roundJudgeScoreRepository
      */
-    public function __construct(EntityManagerInterface $entityManager, RoundJudgeScoreRepository $roundJudgeScoreRepository)
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->roundJudgeScoreRepository = $roundJudgeScoreRepository;
+        $this->roundJudgeScoreRepository = $this->entityManager->getRepository(RoundJudgeScore::class);
 
     }
 
+    /**
+     * Create random number of NUMBER_OF_JUDGES judges, inserts db and returns
+     * @return ArrayCollection
+     */
     public function createJudges()
     {
         $judges =  new ArrayCollection();
@@ -55,24 +58,32 @@ class JudgeService
         // loop NUMBER_OF_JUDGES times
         foreach(range(1, self::NUMBER_OF_JUDGES) as $index){
 
-            // Get random judge type from JUDGE_TYPES and concatenate it with JUDGE_NAMESPACE
+            // Get random judge type from JUDGE_TYPES const and concatenate it with JUDGE_NAMESPACE to create object
             $judgeClass = self::JUDGE_NAMESPACE.$this->getRandomType();
             $judge =  new $judgeClass;
 
             $this->entityManager->persist($judge);
-            $judges[] = $judge;
+            $judges->add($judge);
         }
         $this->entityManager->flush();
         return $judges;
     }
 
-
+    /**
+     * Returns single random judge type from JUDGE_TYPES const
+     * @return mixed
+     */
     private function getRandomType()
     {
         // return random single judge type
         return  self::JUDGE_TYPES[rand(0, count(self::JUDGE_TYPES)-1)];
     }
 
+    /**
+     * Returns contestant's total score in a contest
+     * @param Contestant $contestant
+     * @return int
+     */
     public function getTotalPointOfContestant(Contestant $contestant) : int
     {
 
@@ -82,7 +93,6 @@ class JudgeService
         foreach($rounds as $round){
             $total += $round->getScore();
         }
-
 
         return $total;
 

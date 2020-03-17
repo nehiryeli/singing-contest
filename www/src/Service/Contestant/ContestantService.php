@@ -4,10 +4,12 @@
 namespace App\Service\Contestant;
 
 
+use App\Entity\Contest\Contest;
 use App\Entity\Contestant\Contestant;
 use App\Entity\Contestant\ContestantScore;
 use App\Repository\Contest\ContestRepository;
 use App\Service\Genre\GenreService;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ContestantService
@@ -22,25 +24,27 @@ class ContestantService
     /**
      * @var ContestRepository
      */
-    private $contestRepo;
+    private $contestRepository;
     /**
      * @var GenreService
      */
     private $genreService;
 
-    public function __construct(EntityManagerInterface $entityManager, ContestRepository $contestRepo, GenreService $genreService )
+    public function __construct(EntityManagerInterface $entityManager, GenreService $genreService )
     {
         $this->entityManager = $entityManager;
-        $this->contestRepo = $contestRepo;
+        $this->contestRepository = $this->entityManager->getRepository(Contest::class);
         $this->genreService = $genreService;
-
 
     }
 
-
+    /**
+     * Creates number of NUMBER_OF_CONTESTANT random contestants records to db and returns them
+     * @return ArrayCollection
+     */
     public function createContestants()
     {
-        $contestants = array();
+        $contestants = new ArrayCollection();
         // loop NUMBER_OF_CONTESTANT times
         foreach(range(1, self::NUMBER_OF_CONTESTANT) as $index){
 
@@ -52,12 +56,10 @@ class ContestantService
 
             // Set skill point for each genres for contestant
             $this->setPointsForContestant($contestant);
-            $contestants[] = $contestant;
+            $contestants->add($contestant);
 
         }
-
         return $contestants;
-
     }
 
     /**
@@ -71,10 +73,9 @@ class ContestantService
             $contestantScore = new ContestantScore();
             $contestantScore->setGenre($genre);
             $contestantScore->setScore(rand(self::MIN_SKILL_SCORE, self::MAX_SKILL_SCORE));
-            $this->entityManager->persist($contestantScore);
-
             $contestant->addScore($contestantScore);
 
+            $this->entityManager->persist($contestantScore);
             $this->entityManager->flush();
 
         }

@@ -8,6 +8,7 @@ use App\Entity\Contest\Contest;
 use App\Entity\Contest\ContestContestant;
 use App\Entity\Contest\ContestJudges;
 use App\Entity\Contest\ContestWinner;
+use App\Entity\Contestant\Contestant;
 use App\Entity\Round\Round;
 use App\Service\Contestant\ContestantService;
 use App\Service\Genre\GenreService;
@@ -49,8 +50,8 @@ class ContestService
      */
     public function __construct(EntityManagerInterface $entityManager,
                                 ContestantService $contestantService,
-                                judgeService $judgeService,
-                                genreService $genreService,
+                                JudgeService $judgeService,
+                                GenreService $genreService,
                                 RoundService $roundService
     )
     {
@@ -60,7 +61,6 @@ class ContestService
         $this->judgeService = $judgeService;
         $this->genreService = $genreService;
         $this->roundService = $roundService;
-
 
     }
 
@@ -83,12 +83,11 @@ class ContestService
             $this->contest = $this->createContest();
         } catch (\Exception $e) {
             dd($e);
-            // TODO: Log exception
+            // TODO: Log the exception
         }
 
         /* STEP 2 Create contestants */
         $contestants = $this->contestantService->createContestants();
-
 
         /* STEP 3 Create Judge */
         $judges = $this->judgeService->createJudges();
@@ -112,6 +111,7 @@ class ContestService
     private function createContest(){
         // check if there is active contests
         if(!$this->contestRepository->getUncompletedContest()){
+
             // create new contest
             $contest = new Contest();
             $contest->setIsCompleted(0);
@@ -126,10 +126,11 @@ class ContestService
         }else{
             // trying to create more than one contest at a time
             throw new \Exception("Only one singing contest can be at a time ");
+
         }
     }
 
-    private function assignContestants(Contest $contest, Array $contestants)
+    private function assignContestants(Contest $contest, $contestants)
     {
         foreach($contestants as $contestant){
             $contestContestant = new ContestContestant();

@@ -34,15 +34,17 @@ class RockJudge extends Judge implements JudgeInterface
      */
     public function scoring(RoundContestantScore $roundRoundContestantScore)    {
         // if round is rock genre
-        if($roundRoundContestantScore->getRound()->getGenre() == self::ROCK_GENRE){
+        if($roundRoundContestantScore->getRound()->getGenre()->getName() == self::ROCK_GENRE){
 
-            if(in_array($roundRoundContestantScore, range(0, self::LOW_THRESHOLD))){
+            if($roundRoundContestantScore->getScore() < self::LOW_THRESHOLD){
                 $score = self::LOW_SCORE;
-            }else if(in_array($roundRoundContestantScore, range(self::LOW_THRESHOLD, self::MID_THRESHOLD))){
+            }else if($roundRoundContestantScore->getScore() < self::HIGH_THRESHOLD){
                 $score = self::MID_SCORE;
             }else{
                 $score = self::HIGH_SCORE;
             }
+
+
 
         // if round is not rock genre, return random score
         }else{
