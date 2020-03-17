@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <table>
+            <tr>
+                <td>
+                    {%for rank in ranking  %}
+                        <ul>
+                            <li>Contestant: {{ rank.contestant.id }}<br>
+                                Score: {{ rank.score }}</li>
+                        </ul>
+                    {% endfor %}
+                </td>
+
+            </tr>
+        </table>
+        <a href="{{ path('previous_contests') }}" class="btn btn-warning btn-large">Previous Contests</a>
+        {% if(ranking) %}
+            <a href="{{ path('next_round') }}" class="btn btn-info btn-large">Proceed</a>
+            Round: {{ progress.currentRound }} / {{ progress.totalRounds }}
+        {% else %}
+            <a href="{{ path('create_contest') }}" class="btn btn-success btn-large">Create Contest</a>
+        {% endif %}
+    </div>
+{% endblock %}

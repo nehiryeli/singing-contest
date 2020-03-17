@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+
+        <div class="col-sm-6">
+            <h2>Last {{ contests |length }} Contest Results </h2>
+            <ul>
+                {% for contest in contests %}
+                    <li>
+                        Contest: {{ contest.id }}
+                        <ul>
+
+                            {% for winner in contest.winner %}
+
+                                <li>Winner: Contestant- {{ winner.contestant.id }}</li>
+                                <li>Score: {{ winner.totalScore }}</li>
+
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-sm-6">
+            <h2>All Times Best</h2>
+            {% for contest in bestScoreContests %}
+                Contest ID: {{ contest.contest.id }}<br>
+                Total Score: {{ contest.totalScore }}<br>
+            {% endfor %}
+        </div>
+
+
+    </div>
+{% endblock %}
