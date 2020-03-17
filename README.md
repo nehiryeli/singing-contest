@@ -21,7 +21,7 @@ Use files ```www``` folder. Update DB credentials located in
 ```www\.env``` file.
 
 Import DB schema in ```SQL``` folder
-### How To Run
+## How To Run
 Run http://localhost:8080/public/index.php/ with Docker configuration
 Or 
 ```SERVER ROOT/public/index.php/```
