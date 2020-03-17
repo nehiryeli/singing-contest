@@ -1,4 +1,4 @@
-#Singing Contest Simulator
+# Singing Contest Simulator
 ## Developed on 
 PHP 7.4 and MySQL 5.7
 
