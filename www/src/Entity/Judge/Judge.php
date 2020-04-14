@@ -13,14 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({
- *     "judge" = "Judge",
- *     "meanJudge" = "MeanJudge",
- *     "honestJudge" = "HonestJudge",
- *     "randomJudge" = "RandomJudge",
- *     "rockJudge" = "RockJudge",
- *     "friendlyJudge" = "FriendlyJudge"
- * })
  */
 class Judge implements JudgeInterface
 {
@@ -31,10 +23,7 @@ class Judge implements JudgeInterface
      */
     private $id;
 
-    /**
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $category;
+
     
 
     /**
@@ -53,17 +42,7 @@ class Judge implements JudgeInterface
         return $this->id;
     }
 
-    public function getCategory(): ?JudgeCategory
-    {
-        return $this->category;
-    }
 
-    public function setCategory(?JudgeCategory $category): self
-    {
-        $this->category = $category;
-
-        return $this;
-    }
 
     /**
      * @return Collection|RoundJudgeScore[]
@@ -98,7 +77,7 @@ class Judge implements JudgeInterface
 
 
     /**
-     * Each Judge has their own calculation method based on their category
+     * Each Judge has their own calculation method based on their type
      * @param $roundContestantScore
      * @return mixed
      */
