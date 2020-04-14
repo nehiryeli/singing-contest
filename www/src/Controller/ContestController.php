@@ -75,7 +75,7 @@ class ContestController extends AbstractController
      * @param ContestService $contestService
      * @return Response
      */
-    public function previous_contests(ContestService $contestService)
+    public function previousContests(ContestService $contestService)
     {
         $bestScoreContests = $contestService->getAllTimesBestScoreContest();
 
