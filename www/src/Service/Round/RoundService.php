@@ -86,7 +86,7 @@ class RoundService
             $this->setContestantRoundScore($round);
 
             // calculate judge's score
-            $this->setJudgeScore($round, $contest->getJudges());
+            $this->setJudgeScore($round);
 
             // mark round as completed
             $round->setIsCompleted(true);
