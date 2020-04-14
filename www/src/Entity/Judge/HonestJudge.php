@@ -42,7 +42,7 @@ class HonestJudge extends Judge implements JudgeInterface
         /** @var ContestantScore $roundRoundContestantScore */
 
         /*
-         * To get judge score do minus 0.1 because boundaries are included(like 10.0 not 9.9) than dived to 10 (base)
+         * To get judge score do minus 0.1 because boundaries are included(like 10.0 not 9.9) than divide to 10 (base)
          * and add 1 point because scores starts from 1
          */
         return intval(($roundRoundContestantScore->getScore() - 0.1)/10) + 1;
